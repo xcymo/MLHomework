@@ -82,8 +82,8 @@ X = [ones(m, 1) X];
 fprintf('Running gradient descent ...\n');
 
 % Choose some alpha value
-alpha = 0.01;
-num_iters = 400;
+alpha = 0.1;
+num_iters = 100;
 
 % Init Theta and Run Gradient Descent 
 theta = zeros(3, 1);
@@ -100,11 +100,26 @@ fprintf('Theta computed from gradient descent: \n');
 fprintf(' %f \n', theta);
 fprintf('\n');
 
+% 失败的等高线图，太丑了
+% theta_1 = linspace(59912,219912,1000);
+% theta_2 = linspace(-6931,-4931,1000);
+% J_vals=zeros(length(theta_1),length(theta_2));
+% for i = 1:length(theta_1)
+%     for j = 1:length(theta_2)
+% 	  t = [340403;theta_1(i); theta_2(j)];
+% 	  J_vals(i,j) = computeCostMulti(X, y, t);
+%     end
+% end
+% figure;
+% contour(theta_1, theta_2, J_vals)
+% xlabel('\theta_1'); ylabel('\theta_2');
+
+
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
-price = 0; % You should change this
+price = [1,(([1650,3]-mu)./sigma)]*theta; % You should change this
 
 
 % ============================================================
@@ -149,7 +164,7 @@ fprintf('\n');
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
-price = 0; % You should change this
+price = [1,1650,3]*theta; % You should change this
 
 
 % ============================================================
