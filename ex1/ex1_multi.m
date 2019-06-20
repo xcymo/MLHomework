@@ -82,8 +82,8 @@ X = [ones(m, 1) X];
 fprintf('Running gradient descent ...\n');
 
 % Choose some alpha value
-alpha = 0.1;
-num_iters = 100;
+alpha = 0.2;
+num_iters = 50;
 
 % Init Theta and Run Gradient Descent 
 theta = zeros(3, 1);
@@ -99,20 +99,6 @@ ylabel('Cost J');
 fprintf('Theta computed from gradient descent: \n');
 fprintf(' %f \n', theta);
 fprintf('\n');
-
-% 失败的等高线图，太丑了
-% theta_1 = linspace(59912,219912,1000);
-% theta_2 = linspace(-6931,-4931,1000);
-% J_vals=zeros(length(theta_1),length(theta_2));
-% for i = 1:length(theta_1)
-%     for j = 1:length(theta_2)
-% 	  t = [340403;theta_1(i); theta_2(j)];
-% 	  J_vals(i,j) = computeCostMulti(X, y, t);
-%     end
-% end
-% figure;
-% contour(theta_1, theta_2, J_vals)
-% xlabel('\theta_1'); ylabel('\theta_2');
 
 
 % Estimate the price of a 1650 sq-ft, 3 br house
@@ -150,6 +136,8 @@ X = data(:, 1:2);
 y = data(:, 3);
 m = length(y);
 
+
+
 % Add intercept term to X
 X = [ones(m, 1) X];
 
@@ -171,4 +159,24 @@ price = [1,1650,3]*theta; % You should change this
 
 fprintf(['Predicted price of a 1650 sq-ft, 3 br house ' ...
          '(using normal equations):\n $%f\n'], price);
+
+% 失败的等高线图，太丑了
+[theta_1_s,theta_1_b] = get2nums(theta(2),2)
+[theta_2_s,theta_2_b] = get2nums(theta(3),2)
+theta_1 = linspace(theta_1_s,theta_1_b,100);
+theta_2 = linspace(theta_2_s,theta_2_b,100);
+J_vals=zeros(length(theta_1),length(theta_2));
+for i = 1:length(theta_1)
+    for j = 1:length(theta_2)
+	  t = [theta(1);theta_1(i); theta_2(j)];
+	  J_vals(i,j) = computeCostMulti(X, y, t);
+    end
+end
+
+figure;
+contour(theta_1, theta_2, J_vals')
+xlabel('\theta_1'); ylabel('\theta_2');
+figure;
+surf(theta_1, theta_2, J_vals')
+xlabel('\theta_1'); ylabel('\theta_2');
 
